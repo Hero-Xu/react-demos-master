@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>双向数据绑定</title>
+	<script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <script src="../build/react-with-addons.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		var BigComponent = React.createClass({
+			mixins: [React.addons.LinkedStateMixin],
+			getInitialState: function(){
+				return {
+					name: "WangXu",
+					say: "我是王旭！",
+					like: "I love react.",
+					dislike: "I don`t like react!",
+					flag: true
+				}
+			},
+			render: function(){
+				return (
+					<div>
+						<h1>{this.state.name}</h1>
+						<p>{this.state.say}</p>
+						<p>{this.state.flag?this.state.like:this.state.dislike}</p>
+						<input type="text" valueLink={this.linkState('say')} />
+						你喜欢react吗？
+						<input type="checkbox" checkedLink={this.linkState('flag')} />
+						<SmallComponent valueLink={this.linkState('say')} checkedLink={this.linkState('flag')} />
+					</div>
+				)
+			}
+		});
+		var SmallComponent = React.createClass({
+			render: function(){
+				return (
+					<SmallSmallComponent {...this.props} />
+				)
+			}
+		});
+		var SmallSmallComponent = React.createClass({
+			render: function(){
+				return (
+					<div>
+						<input type="text" valueLink={this.props.valueLink}/>
+						你喜欢react吗？
+						<input type="checkbox" checkedLink={this.props.checkedLink}/>
+					</div>
+				);
+			}
+		});
+		React.render(
+			<BigComponent/>,
+			document.getElementById('example')
+		);
+	</script>
+</body>
+</html>

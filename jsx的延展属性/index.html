@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsx的延展属性</title>
+	<script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+	<script type="text/babel">
+		var props = {foo: "wangxu", f:"哈喽！"};
+		var component = <component {...props} />;
+		console.log(component.props.foo);
+		console.log(component.props.f);
+
+	</script>
+</body>
+</html>
